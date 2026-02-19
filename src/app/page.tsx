@@ -7,6 +7,7 @@ export default function Home() {
             <main className={styles.main}>
                 <Calculator />
             </main>
+            <h3>Some changes</h3>
         </div>
     )
 }
