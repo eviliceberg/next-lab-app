@@ -1,3 +1,5 @@
+[![Next.js CI/CD Pipeline](https://github.com/eviliceberg/next-lab-app/actions/workflows/ci-cd.yml/badge.svg?branch=main)](https://github.com/eviliceberg/next-lab-app/actions/workflows/ci-cd.yml)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
