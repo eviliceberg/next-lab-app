@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 export default function Home() {
     const [isDark, setIsDark] = useState<boolean>(true)
-
+    const state = process.env.NEXT_PUBLIC_APP_STATUS
     return (
         <div
             style={{
@@ -18,12 +18,24 @@ export default function Home() {
             <main className={styles.main}>
                 <Calculator />
             </main>
-            <button
-                className={styles.button}
-                onClick={() => setIsDark(!isDark)}
+            <div
+                style={{
+                    flexDirection: 'column',
+                    display: 'flex',
+                    gap: '20px',
+                }}
             >
-                Toggle theme
-            </button>
+                <h3 style={{ color: isDark ? 'lightgrey' : 'black' }}>
+                    {state}
+                </h3>
+
+                <button
+                    className={styles.button}
+                    onClick={() => setIsDark(!isDark)}
+                >
+                    Toggle theme
+                </button>
+            </div>
         </div>
     )
 }
