@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { calculate, Operation, CalculatorState } from './calculatorManager'
 import s from './page.module.css'
+import posthog from 'posthog-js'
 
 const Calculator: React.FC = () => {
     const [state, setState] = useState<CalculatorState>({
@@ -47,6 +48,12 @@ const Calculator: React.FC = () => {
     const handleEquals = () => {
         if (!state.operation) return
         const result = calculate(state)
+
+        posthog.capture('calculation_performed', {
+            operation: state.operation,
+            category: 'math',
+        })
+
         setState({
             currentValue: result,
             previousValue: '',
