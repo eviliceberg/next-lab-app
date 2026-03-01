@@ -2,11 +2,23 @@
 
 import styles from './page.module.css'
 import Calculator from '@/app/Calculator'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import posthog from 'posthog-js'
 
 export default function Home() {
     const [isDark, setIsDark] = useState<boolean>(true)
     const state = process.env.NEXT_PUBLIC_APP_STATUS
+
+    const [showAdvanced, setShowAdvanced] = useState(false)
+
+    useEffect(() => {
+        posthog.onFeatureFlags(() => {
+            if (posthog.isFeatureEnabled('show-advanced-mode')) {
+                setShowAdvanced(true)
+            }
+        })
+    }, [])
+
     return (
         <div
             style={{
@@ -29,9 +41,20 @@ export default function Home() {
                     {state}
                 </h3>
 
+                {showAdvanced && (
+                    <button className={styles.button}>
+                        Advanced Mode (Beta)
+                    </button>
+                )}
+
                 <button
                     className={styles.button}
-                    onClick={() => setIsDark(!isDark)}
+                    onClick={() => {
+                        setIsDark(!isDark)
+                        posthog.capture('theme_toggled', {
+                            theme: !isDark ? 'dark' : 'light',
+                        })
+                    }}
                 >
                     Toggle theme
                 </button>
